@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run setup
-        run: poetry run python3 iploc.py
+        run: sudo poetry run python3 iploc.py
       - name: Run tests
         run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
       # - name: Upload test results
