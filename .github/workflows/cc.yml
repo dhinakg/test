@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        runner-index: [0, 1, 2, 3, 4, 5, 6, 7]
-        # runner-index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        # runner-index: [0, 1, 2, 3, 4, 5, 6, 7]
+        runner-index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run tests
-        run: poetry run python3 brute_async_v2.py 8 ${{ matrix.runner-index }}
+        run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
       # - name: Upload test results
       #   uses: actions/upload-artifact@v4
       #   with:
