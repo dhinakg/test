@@ -28,9 +28,9 @@ jobs:
           cache: "poetry"
       - name: Install dependencies
         run: poetry install
-      - run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
-      - name: Run setup
-        run: poetry run python3 iploc.py
+      # - run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
+      # - name: Run setup
+      #   run: poetry run python3 iploc.py
       - name: Run tests
         run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
       # - name: Upload test results
