@@ -23,8 +23,6 @@ jobs:
             runner-index: 0
           - os: macos-15
             runner-index: 0
-          - os: self-hosted
-            runner-index: 0
 
     steps:
       - uses: actions/checkout@v4
