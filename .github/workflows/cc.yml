@@ -43,14 +43,14 @@ jobs:
         run: poetry install
       - run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
         if: runner.os == 'Linux'
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
       - name: Run setup
         run: poetry run py iploc.py
         if: runner.os == 'Windows'
       - name: Run setup
         run: poetry run python3 iploc.py
         if: runner.os != 'Windows'
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Run tests
         # run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
         run: poetry run py brute_async_v2.py 16 0
