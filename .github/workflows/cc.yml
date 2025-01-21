@@ -41,7 +41,7 @@ jobs:
         run: poetry install
       - name: Enable sudoless ping
         run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && runner.environment != 'self-hosted'
       - name: Location test (1)
         run: C:\msys64\usr\bin\curl.exe https://mensura.cdn-apple.com/api/v1/gm/config
         if: runner.os == 'Windows'
