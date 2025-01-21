@@ -46,10 +46,19 @@ jobs:
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
       - name: Run setup
+        run: poetry run py iploc.py
+        if: runner.os == 'Windows'
+      - name: Run setup
         run: poetry run python3 iploc.py
+        if: runner.os != 'Windows'
+      - name: Run tests
+        # run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
+        run: poetry run py brute_async_v2.py 16 0
+        if: runner.os == 'Windows'
       - name: Run tests
         # run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
         run: poetry run python3 brute_async_v2.py 16 0
+        if: runner.os != 'Windows'
       # - name: Upload test results
       #   uses: actions/upload-artifact@v4
       #   with:
