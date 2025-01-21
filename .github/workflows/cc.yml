@@ -14,18 +14,16 @@ jobs:
       matrix:
         # runner-index: [0, 1, 2, 3, 4, 5, 6, 7]
         # runner-index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        os: [macos-13, macos-14, macos-15, ubuntu-24.04, ubuntu-22.04, ubuntu-20.04, ubuntu-24.04-arm, ubuntu-22.04-arm, windows-2025, windows-2022, windows-2019]
+        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-20.04, ubuntu-24.04-arm, ubuntu-22.04-arm, windows-2025, windows-2022, windows-2019]
         runner-index: [0, 1, 2, 3]
-        exclude:
-          - os: macos-13
-          - os: macos-14
-          - os: macos-15
         include:
           - os: macos-13
             runner-index: 0
           - os: macos-14
             runner-index: 0
           - os: macos-15
+            runner-index: 0
+          - os: self-hosted
             runner-index: 0
 
     steps:
