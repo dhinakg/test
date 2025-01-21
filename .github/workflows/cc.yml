@@ -49,8 +49,8 @@ jobs:
       - name: Run setup
         run: poetry run python3 iploc.py
         if: runner.os != 'Windows'
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
       - name: Run tests
         # run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
         run: poetry run py brute_async_v2.py 16 0
