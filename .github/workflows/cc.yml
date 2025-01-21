@@ -49,7 +49,7 @@ jobs:
         if: runner.os == 'Windows'
       - name: Location test (1)
         run: curl https://mensura.cdn-apple.com/api/v1/gm/config
-        if: runner.os == 'Windows'
+        if: runner.os != 'Windows'
       - name: Location test (2)
         run: |
           hostname
