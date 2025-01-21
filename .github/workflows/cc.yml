@@ -41,8 +41,19 @@ jobs:
           cache: "poetry"
       - name: Install dependencies
         run: poetry install
-      - run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
+      - name: Enable sudoless ping
+        run: sudo sysctl -w net.ipv4.ping_group_range="0 2147483647"
         if: runner.os == 'Linux'
+      - name: Location test (1)
+        run: C:\msys64\usr\bin\curl.exe https://mensura.cdn-apple.com/api/v1/gm/config
+        if: runner.os == 'Windows'
+      - name: Location test (1)
+        run: curl https://mensura.cdn-apple.com/api/v1/gm/config
+        if: runner.os == 'Windows'
+      - name: Location test (2)
+        run: |
+          hostname
+          curl https://ipinfo.io
       - name: Run setup
         run: poetry run py iploc.py
         if: runner.os == 'Windows'
