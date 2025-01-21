@@ -75,6 +75,7 @@ jobs:
         # run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
         run: poetry run python3 brute_async_v2.py 16 ${{ matrix.runner-index }}
         if: runner.os != 'Windows'
+      - run: cat dumped_codes_4_errors_v2.json
       # - name: Upload test results
       #   uses: actions/upload-artifact@v4
       #   with:
