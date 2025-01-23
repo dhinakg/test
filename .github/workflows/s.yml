@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: serials
-          repository: ${{ secrets.CODE_REPO_S }}
+          repository: ${{ secrets.DATA_REPO_S }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
       - name: Install poetry
         run: pipx install poetry
