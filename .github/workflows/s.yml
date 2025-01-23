@@ -32,6 +32,8 @@ jobs:
           cache: "poetry"
       - name: Install dependencies
         run: poetry install
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Fetch
         run: poetry run python3 fetch_new.py
       # - name: Parse
