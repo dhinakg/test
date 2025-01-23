@@ -42,4 +42,4 @@ jobs:
           git commit -am "Automatic update" || echo "No changes"
           git push
         working-directory: serials
-        if: !cancelled()
+        # if: ${{ !cancelled() }}
