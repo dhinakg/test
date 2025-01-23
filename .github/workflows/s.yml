@@ -1,0 +1,45 @@
+name: S
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.CODE_REPO_S }}
+          token: ${{ secrets.CODE_TOKEN_BOT }}
+      - uses: actions/checkout@v4
+        with:
+          path: serials
+          repository: ${{ secrets.CODE_REPO_S }}
+          token: ${{ secrets.CODE_TOKEN_BOT }}
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: "poetry"
+      - name: Install dependencies
+        run: poetry install
+      - name: Fetch
+        run: poetry run python3 fetch_new.py
+      # - name: Parse
+      #   run: poetry run python3 parse.py
+      - uses: fregante/setup-git-user@024bc0b8e177d7e77203b48dab6fb45666854b35
+        if: always()
+      - run: |
+          git commit -am "Automatic update" || echo "No changes"
+          git push
+        working-directory: serials
+        if: always()
