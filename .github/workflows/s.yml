@@ -36,10 +36,10 @@ jobs:
         run: poetry run python3 fetch_new.py
       # - name: Parse
       #   run: poetry run python3 parse.py
-      - uses: fregante/setup-git-user@024bc0b8e177d7e77203b48dab6fb45666854b35
-        if: always()
       - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -am "Automatic update" || echo "No changes"
           git push
         working-directory: serials
-        if: always()
+        if: !cancelled()
