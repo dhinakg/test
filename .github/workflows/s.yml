@@ -3,6 +3,8 @@ name: S
 on:
   push:
   workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
 
 env:
   PYTHONUNBUFFERED: "1"
