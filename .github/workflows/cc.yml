@@ -2,6 +2,8 @@ name: CC
 
 on:
   push:
+    paths:
+      - ".github/workflows/cc.yml"
   workflow_dispatch:
 
 env:

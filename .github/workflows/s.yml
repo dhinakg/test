@@ -2,6 +2,8 @@ name: S
 
 on:
   push:
+    paths:
+      - ".github/workflows/s.yml"
   workflow_dispatch:
   schedule:
     - cron: "*/10 * * * *"
