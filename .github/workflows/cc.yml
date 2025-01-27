@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.CODE_REPO_S }}
+          repository: ${{ secrets.CODE_REPO_CC }}
           token: ${{ secrets.CODE_TOKEN }}
       - name: Install poetry
         run: pipx install poetry
