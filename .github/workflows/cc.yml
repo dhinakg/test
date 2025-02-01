@@ -86,7 +86,7 @@ jobs:
           name: ${{ matrix.runner-index }}-results
           path: |
             brute_*.json
-            weird_failures.json
+            weird_failure*.json
   merge:
     runs-on: ubuntu-latest
     needs: run
