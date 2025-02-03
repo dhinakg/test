@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         # runner-index: [0, 1, 2, 3, 4, 5, 6, 7]
-        runner-index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+        runner-index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
 
     # runs-on: ${{ matrix.os }}
     # strategy:
@@ -71,19 +71,19 @@ jobs:
       #   uses: mxschmitt/action-tmate@v3
       - name: Run tests 1
         run: |
-          poetry run py brute_main.py 32 ${{ matrix.runner-index }}
+          poetry run py brute_main.py 37 ${{ matrix.runner-index }}
         if: runner.os == 'Windows'
       - name: Run tests 1
         run: |
-          poetry run python3 brute_main.py 32 ${{ matrix.runner-index }}
+          poetry run python3 brute_main.py 37 ${{ matrix.runner-index }}
         if: runner.os != 'Windows'
       - name: Run tests 2
         run: |
-          poetry run py brute_alt.py 32 ${{ matrix.runner-index }}
+          poetry run py brute_alt.py 37 ${{ matrix.runner-index }}
         if: runner.os == 'Windows'
       - name: Run tests 2
         run: |
-          poetry run python3 brute_alt.py 32 ${{ matrix.runner-index }}
+          poetry run python3 brute_alt.py 37 ${{ matrix.runner-index }}
         if: runner.os != 'Windows'
       # - run: cat dumped_codes_4_errors_v2.json
       - name: Upload test results
