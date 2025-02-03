@@ -69,14 +69,20 @@ jobs:
         if: runner.os != 'Windows'
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
-      - name: Run tests
+      - name: Run tests 1
         run: |
           poetry run py brute_main.py 32 ${{ matrix.runner-index }}
-          poetry run py brute_alt.py 32 ${{ matrix.runner-index }}
         if: runner.os == 'Windows'
-      - name: Run tests
+      - name: Run tests 1
         run: |
           poetry run python3 brute_main.py 32 ${{ matrix.runner-index }}
+        if: runner.os != 'Windows'
+      - name: Run tests 2
+        run: |
+          poetry run py brute_alt.py 32 ${{ matrix.runner-index }}
+        if: runner.os == 'Windows'
+      - name: Run tests 2
+        run: |
           poetry run python3 brute_alt.py 32 ${{ matrix.runner-index }}
         if: runner.os != 'Windows'
       # - run: cat dumped_codes_4_errors_v2.json
