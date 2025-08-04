@@ -28,6 +28,8 @@ jobs:
           path: serials
           repository: ${{ secrets.DATA_REPO_S }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
+          fetch-depth: 2
+          filter: tree:0
       - name: Install poetry
         run: pipx install poetry
       - uses: actions/setup-python@v5
