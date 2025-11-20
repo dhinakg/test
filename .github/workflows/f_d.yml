@@ -29,7 +29,8 @@ jobs:
           path: ${{ env.ROOT_PATH }}
           repository: ${{ secrets.DATA_REPO_F }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
-      - run: |
+      - name: Clone documentation
+        run: |
           mkdir ${{ env.ROOT_PATH }}/documentation
           cd ${{ env.ROOT_PATH }}/documentation
           git config --global --add safe.directory .
@@ -37,7 +38,7 @@ jobs:
           git config gc.auto 0
           git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n 'x-access-token:${{ secrets.CODE_TOKEN_BOT }}' | base64 -w0)"
           git remote add origin https://github.com/${{ secrets.DATA_REPO_F_D }}
-          git fetch
+          git fetch --progress
           git reset origin/main > /dev/null
           git checkout main > /dev/null
       - name: Setup Python
