@@ -34,6 +34,9 @@ jobs:
           path: ${{ env.ROOT_PATH }}/support
           repository: ${{ secrets.DATA_REPO_F_S }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
+          # fetch-depth: 2
+          # filter: tree:0
+          sparse-checkout: .
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
