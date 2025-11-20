@@ -29,6 +29,8 @@ jobs:
           path: ${{ env.ROOT_PATH }}
           repository: ${{ secrets.DATA_REPO_F }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - run: |
           mkdir ${{ env.ROOT_PATH }}/documentation
           cd ${{ env.ROOT_PATH }}/documentation
