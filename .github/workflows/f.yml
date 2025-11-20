@@ -1,0 +1,67 @@
+name: F
+
+on:
+  push:
+    paths:
+      - ".github/workflows/f.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+env:
+  PYTHONUNBUFFERED: "1"
+  ROOT_PATH: "files"
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          repository: ${{ secrets.CODE_REPO_F }}
+          token: ${{ secrets.CODE_TOKEN }}
+      - uses: actions/checkout@v5
+        with:
+          path: ${{ env.ROOT_PATH }}
+          repository: ${{ secrets.DATA_REPO_F }}
+          token: ${{ secrets.CODE_TOKEN_BOT }}
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: "pyproject.toml"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Fetch
+        run: uv run python3 fetch.py
+        env:
+          DEVPORTAL_AUTHORIZATION: ${{ secrets.DEVPORTAL_AUTHORIZATION }}
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        working-directory: ${{ env.ROOT_PATH }}
+      - name: Commit
+        run: uv run python3 committer.py
+      - name: Check for uncommitted changes
+        id: git-check
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Uncommitted changes found"
+            git status
+            exit 1
+          fi
+        working-directory: ${{ env.ROOT_PATH }}
+      - name: Push
+        run: |
+          git push
+        working-directory: ${{ env.ROOT_PATH }}
+      - name: Notify
+        uses: sarisia/actions-status-discord@b8381b25576cb341b2af39926ab42c5056cc44ed
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
