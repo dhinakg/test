@@ -57,7 +57,7 @@ jobs:
       - run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-        working-directory: ${{ env.ROOT_PATH }}
+        working-directory: ${{ env.ROOT_PATH }}/documentation
       - name: Commit
         run: uv run python3 commit_docs.py
       - name: Push
