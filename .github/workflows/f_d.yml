@@ -38,8 +38,8 @@ jobs:
           git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n 'x-access-token:${{ secrets.CODE_TOKEN_BOT }}' | base64 -w0)"
           git remote add origin https://github.com/${{ secrets.DATA_REPO_F_D }}
           git fetch
-          git reset origin/main
-          git checkout main
+          git reset origin/main > /dev/null
+          git checkout main > /dev/null
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
