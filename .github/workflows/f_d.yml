@@ -29,21 +29,17 @@ jobs:
           path: ${{ env.ROOT_PATH }}
           repository: ${{ secrets.DATA_REPO_F }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - run: |
           mkdir ${{ env.ROOT_PATH }}/documentation
           cd ${{ env.ROOT_PATH }}/documentation
           git config --global --add safe.directory .
           git init
           git config gc.auto 0
-          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' '${{ secrets.CODE_TOKEN_BOT }}' | base64)"
+          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n 'x-access-token:${{ secrets.CODE_TOKEN_BOT }}' | base64 -w0)"
           git remote add origin https://github.com/${{ secrets.DATA_REPO_F_D }}
           git fetch
           git reset origin/main
           git checkout main
-        env:
-          GIT_CURL_VERBOSE: "1"
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
