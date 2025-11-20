@@ -67,6 +67,10 @@ jobs:
         run: |
           git push
         working-directory: ${{ env.ROOT_PATH }}
+      - name: Push
+        run: |
+          git push
+        working-directory: ${{ env.ROOT_PATH }}/support
       - name: Notify
         uses: sarisia/actions-status-discord@b8381b25576cb341b2af39926ab42c5056cc44ed
         if: failure()
