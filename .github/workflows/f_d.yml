@@ -1,0 +1,71 @@
+name: F_D
+
+on:
+  push:
+    paths:
+      - ".github/workflows/f_d.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "22 */4 * * *"
+
+env:
+  PYTHONUNBUFFERED: "1"
+  ROOT_PATH: "files"
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          repository: ${{ secrets.CODE_REPO_F }}
+          token: ${{ secrets.CODE_TOKEN }}
+      - uses: actions/checkout@v5
+        with:
+          path: ${{ env.ROOT_PATH }}
+          repository: ${{ secrets.DATA_REPO_F }}
+          token: ${{ secrets.CODE_TOKEN_BOT }}
+      - run: |
+          mkdir ${{ env.ROOT_PATH }}/documentation
+          cd ${{ env.ROOT_PATH }}/documentation
+          git config --global --add safe.directory .
+          git init
+          git config gc.auto 0
+          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.CODE_TOKEN_BOT }} | base64)"
+          git remote add origin ${{ secrets.DATA_REPO_F_D }}
+          git fetch
+          git reset origin/main
+          git checkout main
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: "pyproject.toml"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Fetch
+        run: uv run python3 fetch.py docs
+        env:
+          DEVPORTAL_AUTHORIZATION: ${{ secrets.DEVPORTAL_AUTHORIZATION }}
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        working-directory: ${{ env.ROOT_PATH }}
+      - name: Commit
+        run: uv run python3 commit_docs.py
+      - name: Push
+        run: |
+          git push
+        working-directory: ${{ env.ROOT_PATH }}/documentation
+      - name: Notify
+        uses: sarisia/actions-status-discord@b8381b25576cb341b2af39926ab42c5056cc44ed
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
