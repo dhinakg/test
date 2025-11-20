@@ -36,7 +36,7 @@ jobs:
           git config --global --add safe.directory .
           git init
           git config gc.auto 0
-          git config feature.manyFiles true
+          # git config feature.manyFiles true
           git config core.fsmonitor true
           git config core.untrackedcache true
           git config core.commitgraph true
