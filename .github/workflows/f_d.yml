@@ -40,6 +40,8 @@ jobs:
           git fetch
           git reset origin/main
           git checkout main
+        env:
+          GIT_CURL_VERBOSE: "1"
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
