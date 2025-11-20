@@ -29,6 +29,11 @@ jobs:
           path: ${{ env.ROOT_PATH }}
           repository: ${{ secrets.DATA_REPO_F }}
           token: ${{ secrets.CODE_TOKEN_BOT }}
+      - uses: actions/checkout@v5
+        with:
+          path: ${{ env.ROOT_PATH }}/support
+          repository: ${{ secrets.DATA_REPO_F_S }}
+          token: ${{ secrets.CODE_TOKEN_BOT }}
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
