@@ -35,7 +35,7 @@ jobs:
           git config --global --add safe.directory .
           git init
           git config gc.auto 0
-          git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n 'x-access-token:${{ secrets.CODE_TOKEN_BOT }}' | base64)"
+          # git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n 'x-access-token:${{ secrets.CODE_TOKEN_BOT }}' | base64)"
           git remote add origin https://github.com/${{ secrets.DATA_REPO_F_D }}
           git fetch
           git reset origin/main
