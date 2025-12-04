@@ -6,7 +6,10 @@ on:
       - ".github/workflows/f.yml"
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"
+    - cron: "*/5 18-19 * * *"
+    - cron: "*/5 21-22 * * *"
+    - cron: "*/5 0-1 * * *"
 
 env:
   PYTHONUNBUFFERED: "1"
