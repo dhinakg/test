@@ -58,6 +58,10 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
         working-directory: ${{ env.ROOT_PATH }}
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        working-directory: ${{ env.ROOT_PATH }}/support
       - name: Commit
         run: uv run python3 committer.py
       - name: Check for uncommitted changes
