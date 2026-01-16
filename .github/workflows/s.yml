@@ -40,6 +40,8 @@ jobs:
           filter: tree:0
       - name: Fetch
         run: poetry run python3 fetch_new.py
+      - name: Client
+        run: poetry run python3 client.py
       # - name: Parse
       #   run: poetry run python3 parse.py
       - run: |
@@ -47,6 +49,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git pull
           git add cache_new
+          git add api
           git commit -am "Automatic update" || echo "No changes"
           git push
         working-directory: serials
