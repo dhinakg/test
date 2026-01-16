@@ -40,8 +40,8 @@ jobs:
           filter: tree:0
       - name: Fetch
         run: poetry run python3 fetch_new.py
-      - name: Client
-        run: poetry run python3 client.py
+      # - name: Client
+      #   run: poetry run python3 client.py
       # - name: Parse
       #   run: poetry run python3 parse.py
       - run: |
